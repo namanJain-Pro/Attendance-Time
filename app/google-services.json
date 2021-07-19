@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "402925496440",
+    "project_id": "attendance-time",
+    "storage_bucket": "attendance-time.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402925496440:android:d991adabf94ffebb66e58d",
+        "android_client_info": {
+          "package_name": "com.example.attendancetime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402925496440-cto4d8hrq1fn0pghos6la04pu26qeh5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.attendancetime",
+            "certificate_hash": "f70a56489997fbd61052b717efe229104c1b1698"
+          }
+        },
+        {
+          "client_id": "402925496440-q071b25sm8ib82mcgpdbpo3h2iup3frs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvx9mqgu0Bn3Ub7saMKG_PebVf9K9-594"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402925496440-q071b25sm8ib82mcgpdbpo3h2iup3frs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
