@@ -89,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/add_students"
                     android:textAppearance="?attr/textAppearanceButton"
-                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     app:icon="@drawable/ic_baseline_add"
                     app:iconGravity="textStart"
