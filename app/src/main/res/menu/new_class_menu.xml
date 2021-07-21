@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_baseline_help_24"
+        android:title="@string/help"
+        app:showAsAction="ifRoom|withText" />
+    <item
         android:id="@+id/option_done_menu"
         android:icon="@drawable/ic_baseline_done_24"
         android:title="@string/done"

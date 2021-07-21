@@ -27,7 +27,7 @@ class IdentifyDevices {
         studentList = CommonValue.studentList.value!!
 
         for (device in btDevices) {
-            if (correctNameFormat(device.name)) {
+            if (correctNameFormat(device?.name ?: "")) {
                 val details = device.name.split("_")
                 val student = Student(details[2], details[1], details[0].toLong(), device.address)
                 if (!StudentValidation().studentAlreadyExist(student)) {

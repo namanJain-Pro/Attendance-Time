@@ -2,6 +2,7 @@ package com.example.attendancetime.screen.dashboard
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,7 +51,6 @@ class DashboardFragment : Fragment() {
     //This function is creating the toolbar and menu item for it
     //And Listening for the clicks
     private fun setUpToolbar() {
-        binding.toolbar.inflateMenu(R.menu.dashboard_menu)
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.add_new_class -> {
@@ -64,7 +64,6 @@ class DashboardFragment : Fragment() {
                     findNavController().navigate(R.id.action_dashboardFragment_to_signInFragment)
                     true
                 }
-
                 else -> false
             }
         }

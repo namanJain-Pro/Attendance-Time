@@ -7,12 +7,13 @@
     <string name="add_new_class">Add New Class</string>
     <string name="unknown">Unknown</string>
     <string name="n_a">N/A</string>
-    <string name="class_strength">Class Strength =</string>
     <string name="no_existing_class_found">No existing class found</string>
-    <string name="subject_name">Subject name :</string>
-    <string name="section">Section :</string>
+    <string name="subject_name">Subject name</string>
+    <string name="section">Section</string>
     <string name="add_students">Add Students</string>
     <string name="message">*Student should rename there device with this format - RollNumber_Section_Name</string>
     <string name="no_student_found">No student found</string>
     <string name="done">Done</string>
+    <string name="help">Help</string>
+    <string name="class_background_image">Class background image</string>
 </resources>

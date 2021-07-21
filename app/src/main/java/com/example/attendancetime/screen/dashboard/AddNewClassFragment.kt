@@ -77,15 +77,14 @@ class AddNewClassFragment : Fragment() {
 
     // Inflating the toolbar and listening for the clicks
     private fun setUpToolbar() {
-        binding.toolbar.inflateMenu(R.menu.new_class_menu)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.option_done_menu -> {
                     // If any field is left empty than we will show the message for filling them
                     // Else we will create the new class if all parameter are filled
                     if (notEmptyFieldsCheck()) {
-                        classList.add(SubjectClass(binding.editTextSubjectName.text.toString(),
-                            binding.editTextSection.text.toString(),
+                        classList.add(SubjectClass(binding.editTextSubjectName.editText?.text.toString(),
+                            binding.editTextSection.editText?.text.toString(),
                             studentList))
                         CommonValue.classList.postValue(classList)
                         btObject.unRegisterReceiver()
@@ -99,7 +98,6 @@ class AddNewClassFragment : Fragment() {
             }
         }
         // Here we are adding the back button
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_addNewClassFragment_to_dashboardFragment)
         }
@@ -108,8 +106,8 @@ class AddNewClassFragment : Fragment() {
     // Helper Functions
 
     private fun notEmptyFieldsCheck() : Boolean {
-        return binding.editTextSubjectName.text.trim().isNotEmpty()
-                && binding.editTextSection.text.trim().isNotEmpty()
+        return binding.editTextSubjectName.editText?.text.toString().trim().isNotEmpty()
+                && binding.editTextSection.editText?.text.toString().trim().isNotEmpty()
                 && CommonValue.studentList.value?.isNotEmpty() == true
     }
 
