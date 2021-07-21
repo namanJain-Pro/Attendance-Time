@@ -17,6 +17,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+/*
+This fragment as name suggest is used for authentication.
+Here we just have Google Sign-In option for authentication
+I am using firebase for auth.
+Most of code is form google auth documentation so i no explanation for this.
+ */
+
 class SignInFragment : Fragment() {
 
     companion object {

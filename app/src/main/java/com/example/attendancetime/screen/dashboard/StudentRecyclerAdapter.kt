@@ -6,36 +6,39 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attendancetime.R
-import com.example.attendancetime.datamodel.SubjectClass
+import com.example.attendancetime.datamodel.Student
 
 /*
 Simple Recycler adapter implementation
  */
 
-class DashboardRecyclerAdapter(private val class_list: ArrayList<SubjectClass>?) : RecyclerView.Adapter<DashboardRecyclerAdapter.ViewHolder>() {
+class StudentRecyclerAdapter(private val studentList: ArrayList<Student>?) :
+    RecyclerView.Adapter<StudentRecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val subjectName: TextView = view.findViewById(R.id.subject_name)
-        val section: TextView = view.findViewById(R.id.section)
-        val classStrength: TextView = view.findViewById(R.id.class_strength)
+        val name: TextView = view.findViewById(R.id.textview_name)
+        val rollNumber: TextView = view.findViewById(R.id.textview_roll_number)
+        val section: TextView = view.findViewById(R.id.textview_section)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_class, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_student, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        class_list.let {
+        studentList.let {
             if (it != null && it.isNotEmpty()) {
-                holder.subjectName.text = it[position].subjectName
+                holder.name.text = it[position].name
+                holder.rollNumber.text = "".plus(it[position].rollNumber)
                 holder.section.text = it[position].section
-                holder.classStrength.text = "".plus(it[position].students.size)
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return class_list?.size ?: 0
+        return studentList?.size ?: 0
     }
+
+
 }

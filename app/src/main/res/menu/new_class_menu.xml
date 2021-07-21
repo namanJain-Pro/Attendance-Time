@@ -5,6 +5,6 @@
     <item
         android:id="@+id/option_done_menu"
         android:icon="@drawable/ic_baseline_done_24"
-        android:title="Done"
+        android:title="@string/done"
         app:showAsAction="ifRoom|withText" />
 </menu>
