@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#cfd8dc"
     tools:context=".screen.dashboard.AddNewClassFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -84,11 +84,9 @@
 
                 <Button
                     android:id="@+id/add_new_student"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_students"
-                    android:textAppearance="?attr/textAppearanceButton"
                     android:textSize="16sp"
                     app:icon="@drawable/ic_baseline_add"
                     app:iconGravity="textStart"

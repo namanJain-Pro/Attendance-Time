@@ -12,6 +12,7 @@ import com.example.attendancetime.CommonValue
 /*
 This class will handle the process to discover devices
  */
+
 class DiscoverDevices(private val context: Context) {
     companion object {
         private const val TAG = "DiscoverDevices"
@@ -21,6 +22,7 @@ class DiscoverDevices(private val context: Context) {
     private var deviceFound: ArrayList<BluetoothDevice> = arrayListOf()
 
     fun discoverDevices() {
+
         // If bluetooth is not enable before scanning then we will ask the user to enable bluetooth
         if (!bluetoothAdapter.isEnabled) {
             val enableBTIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -38,6 +40,7 @@ class DiscoverDevices(private val context: Context) {
             bluetoothAdapter.startDiscovery()
             context.registerReceiver(receiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
         }
+
         // If not then this
         if(!bluetoothAdapter.isDiscovering) {
             Log.d(TAG, "discoverDevices: Starting discovering")

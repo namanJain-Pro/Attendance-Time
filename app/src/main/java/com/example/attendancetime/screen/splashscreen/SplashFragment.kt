@@ -48,6 +48,6 @@ class SplashFragment :Fragment() {
             } else {
                 navController.navigate(R.id.action_splashFragment_to_dashboard)
             }
-        }, 1000)
+        }, 2500)
     }
 }
