@@ -13,8 +13,9 @@ import com.example.attendancetime.R
 import com.example.attendancetime.bluetoothlogic.DiscoverDevices
 import com.example.attendancetime.bluetoothlogic.IdentifyDevices
 import com.example.attendancetime.databinding.FragmentAddNewClassBinding
-import com.example.attendancetime.datamodel.Student
-import com.example.attendancetime.datamodel.SubjectClass
+import com.example.attendancetime.datamodel.dataclasses.Student
+import com.example.attendancetime.datamodel.dataclasses.SubjectClass
+import com.example.attendancetime.datamodel.firestoreDB.FireStoreDatabase
 
 /*
 Here teacher can add new class
@@ -83,12 +84,14 @@ class AddNewClassFragment : Fragment() {
                     // If any field is left empty than we will show the message for filling them
                     // Else we will create the new class if all parameter are filled
                     if (notEmptyFieldsCheck()) {
-                        classList.add(SubjectClass(binding.editTextSubjectName.editText?.text.toString(),
-                            binding.editTextSection.editText?.text.toString(),
-                            studentList))
+                        val subjectClass = SubjectClass(binding.editTextSubjectName.editText?.text.toString(),
+                            binding.editTextSection.editText?.text.toString(), studentList)
+                        classList.add(subjectClass)
                         CommonValue.classList.postValue(classList)
+                        FireStoreDatabase().addNewClass(subjectClass)
                         btObject.unRegisterReceiver()
-                        findNavController().navigate(R.id.action_addNewClassFragment_to_dashboardFragment)
+                        val action = AddNewClassFragmentDirections.actionAddNewClassFragmentToDashboardFragment()
+                        findNavController().navigate(action)
                     } else {
                         Toast.makeText(binding.root.context, "Please fill all the field", Toast.LENGTH_LONG).show()
                     }

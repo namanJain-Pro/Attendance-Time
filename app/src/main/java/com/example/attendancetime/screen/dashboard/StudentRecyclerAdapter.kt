@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attendancetime.R
-import com.example.attendancetime.datamodel.Student
+import com.example.attendancetime.datamodel.dataclasses.Student
 
 /*
 Simple Recycler adapter implementation

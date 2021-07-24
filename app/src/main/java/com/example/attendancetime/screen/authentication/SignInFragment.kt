@@ -86,7 +86,8 @@ class SignInFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
-                    findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)
+                    val action = SignInFragmentDirections.actionSignInFragmentToDashboardFragment()
+                    findNavController().navigate(action)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                 }

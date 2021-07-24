@@ -2,14 +2,13 @@ package com.example.attendancetime.screen.dashboard
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.attendancetime.CommonValue
 import com.example.attendancetime.R
 import com.example.attendancetime.databinding.FragmentDashboardBinding
-import com.example.attendancetime.datamodel.SubjectClass
+import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 import com.google.firebase.auth.FirebaseAuth
 
 /*
@@ -17,7 +16,7 @@ This is the Dashboard fragment contain the Subject classes
 I am using recycler view for displaying the list of classes that teacher can add
  */
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), DashboardRecyclerAdapter.OnClassItemClickListener {
     // Binding is awesome implementation and replace findviewbyId
     // Developer can directly access view
     private lateinit var binding: FragmentDashboardBinding
@@ -37,7 +36,7 @@ class DashboardFragment : Fragment() {
         setUpToolbar()
         classList = CommonValue.classList.value!!
 
-        val adapter =  DashboardRecyclerAdapter(classList)
+        val adapter =  DashboardRecyclerAdapter(classList, this)
         CommonValue.classList.observe(viewLifecycleOwner, {
             adapter.notifyDataSetChanged()
             visibilityStatus(!classList.isNullOrEmpty())
@@ -55,13 +54,15 @@ class DashboardFragment : Fragment() {
             when(it.itemId) {
                 R.id.add_new_class -> {
                     // Launch AddNewClass Fragment
-                    findNavController().navigate(R.id.action_dashboardFragment_to_addNewClassFragment)
+                    val action = DashboardFragmentDirections.actionDashboardFragmentToAddNewClassFragment()
+                    findNavController().navigate(action)
                     true
                 }
                 R.id.sign_out -> {
                     // Signing out the user and sending it to sign in fragment
                     FirebaseAuth.getInstance().signOut()
-                    findNavController().navigate(R.id.action_dashboardFragment_to_signInFragment)
+                    val action = DashboardFragmentDirections.actionDashboardFragmentToSignInFragment()
+                    findNavController().navigate(action)
                     true
                 }
                 else -> false
@@ -79,5 +80,11 @@ class DashboardFragment : Fragment() {
             binding.recyclerViewClasses.visibility = View.GONE
             binding.emptyWarning.visibility = View.VISIBLE
         }
+    }
+
+    override fun onClassItemClick(position: Int) {
+        CommonValue.classPosition.value = position
+        val action = DashboardFragmentDirections.actionDashboardFragmentToSubjectFragment()
+        findNavController().navigate(action)
     }
 }

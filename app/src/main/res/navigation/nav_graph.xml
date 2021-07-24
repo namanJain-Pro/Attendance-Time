@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_addNewClassFragment"
             app:destination="@id/addNewClassFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_subjectFragment"
+            app:destination="@id/subjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
@@ -57,4 +60,9 @@
             app:popUpTo="@id/addNewClassFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/subjectFragment"
+        android:name="com.example.attendancetime.screen.classes.SubjectFragment"
+        android:label="fragment_subject"
+        tools:layout="@layout/fragment_subject" />
 </navigation>

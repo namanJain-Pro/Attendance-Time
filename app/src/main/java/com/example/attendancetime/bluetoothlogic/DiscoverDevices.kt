@@ -67,13 +67,6 @@ class DiscoverDevices(private val context: Context) {
     }
 
     // Name explain everything
-    fun turnOffBluetooth() {
-        if (bluetoothAdapter.isEnabled) {
-            bluetoothAdapter.disable()
-        }
-    }
-
-    // Name explain everything
     fun unRegisterReceiver() {
         Log.d(TAG, "unRegisterReceiver: unregistering the receiver")
         context.unregisterReceiver(receiver)

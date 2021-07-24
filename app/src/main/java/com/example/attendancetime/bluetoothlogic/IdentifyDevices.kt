@@ -3,7 +3,7 @@ package com.example.attendancetime.bluetoothlogic
 import android.bluetooth.BluetoothDevice
 import android.util.Log
 import com.example.attendancetime.CommonValue
-import com.example.attendancetime.datamodel.Student
+import com.example.attendancetime.datamodel.dataclasses.Student
 import com.example.attendancetime.security.StudentValidation
 
 /*
@@ -40,8 +40,6 @@ class IdentifyDevices {
         }
         CommonValue.studentList.postValue(studentList)
     }
-
-
 
     private fun correctNameFormat(name: String): Boolean {
         val details = name.split("_")

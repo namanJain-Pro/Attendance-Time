@@ -2,7 +2,7 @@ package com.example.attendancetime.security
 
 import android.util.Log
 import com.example.attendancetime.CommonValue
-import com.example.attendancetime.datamodel.Student
+import com.example.attendancetime.datamodel.dataclasses.Student
 
 /*
 This class will observe the security issues and identify user

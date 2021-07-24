@@ -6,18 +6,36 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attendancetime.R
-import com.example.attendancetime.datamodel.SubjectClass
+import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 
 /*
 Simple Recycler adapter implementation
  */
 
-class DashboardRecyclerAdapter(private val class_list: ArrayList<SubjectClass>?) : RecyclerView.Adapter<DashboardRecyclerAdapter.ViewHolder>() {
+class DashboardRecyclerAdapter(
+    private val class_list: ArrayList<SubjectClass>?,
+    private val listener: OnClassItemClickListener
+    ) : RecyclerView.Adapter<DashboardRecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    interface OnClassItemClickListener {
+        fun onClassItemClick(position: Int)
+    }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val subjectName: TextView = view.findViewById(R.id.subject_name)
         val section: TextView = view.findViewById(R.id.section)
         val classStrength: TextView = view.findViewById(R.id.class_strength)
+
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position: Int = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onClassItemClick(position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

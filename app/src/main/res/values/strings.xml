@@ -16,4 +16,5 @@
     <string name="done">Done</string>
     <string name="help">Help</string>
     <string name="class_background_image">Class background image</string>
+    <string name="take_attendance">Take Attendance</string>
 </resources>

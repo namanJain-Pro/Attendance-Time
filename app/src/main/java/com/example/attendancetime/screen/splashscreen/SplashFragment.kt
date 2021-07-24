@@ -44,9 +44,11 @@ class SplashFragment :Fragment() {
         // and checking for the user
         Handler(Looper.getMainLooper()).postDelayed({
             if (auth.currentUser == null) {
-                navController.navigate(R.id.action_splashFragment_to_signInFragment)
+                val action = SplashFragmentDirections.actionSplashFragmentToSignInFragment()
+                navController.navigate(action)
             } else {
-                navController.navigate(R.id.action_splashFragment_to_dashboard)
+                val action = SplashFragmentDirections.actionSplashFragmentToDashboard()
+                navController.navigate(action)
             }
         }, 2500)
     }
