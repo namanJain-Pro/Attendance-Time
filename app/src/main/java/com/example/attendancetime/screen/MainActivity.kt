@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val classesFound = FireStoreDatabase().getClasses()
-        if (classesFound.isNotEmpty()) {
-            CommonValue.classList.postValue(classesFound)
-        }
-
         // Setting the nav controller for fragments
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

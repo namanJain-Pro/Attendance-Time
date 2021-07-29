@@ -1,13 +1,12 @@
 package com.example.attendancetime.datamodel.firestoreDB
 
 import android.util.Log
+import com.example.attendancetime.CommonValue
 import com.example.attendancetime.datamodel.dataclasses.Attendance
-import com.example.attendancetime.datamodel.dataclasses.Student
 import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 
 class FireStoreDatabase {
 
@@ -36,17 +35,14 @@ class FireStoreDatabase {
             .addOnFailureListener { Log.e(TAG, "addNewAttendance: Error writing attendance document, " + it.message) }
     }
 
-    fun getClasses(): ArrayList<SubjectClass> {
-        var classList = arrayListOf<SubjectClass>()
+    fun fetchClasses() {
         db.collection(DBName)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-//                    val subjectClassObject = document.toObject<SubjectClass>()
-//                    Log.d(TAG, "getClasses: ${document.id} and ${document.data}")
+                    val subjectClassObject = document.toObject<SubjectClass>()
                 }
             }
             .addOnFailureListener { Log.e(TAG, "getClasses: Error in getting data, " + it.message) }
-        return classList
     }
 }

@@ -1,6 +1,12 @@
 package com.example.attendancetime.datamodel.dataclasses
 
-data class Student(val name: String, val section: String, val rollNumber: Long, val macAddress: String) {
+data class Student(
+    val name: String,
+    val section: String,
+    val rollNumber: Long,
+    val macAddress: String) {
+
+    constructor() : this("", "", 0, "")
 
     // 0 -> Invalid Check or two objects are not same
     // 1 -> objects are same

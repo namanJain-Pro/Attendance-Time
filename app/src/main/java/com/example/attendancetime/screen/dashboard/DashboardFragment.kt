@@ -10,7 +10,6 @@ import com.example.attendancetime.R
 import com.example.attendancetime.databinding.FragmentDashboardBinding
 import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 import com.google.firebase.auth.FirebaseAuth
-
 /*
 This is the Dashboard fragment contain the Subject classes
 I am using recycler view for displaying the list of classes that teacher can add
