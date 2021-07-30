@@ -31,4 +31,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    override fun onStop() {
+        super.onStop()
+        CommonValue.destroyState()
+    }
 }

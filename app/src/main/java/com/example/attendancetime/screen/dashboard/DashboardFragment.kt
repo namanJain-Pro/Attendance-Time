@@ -1,6 +1,9 @@
 package com.example.attendancetime.screen.dashboard
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -9,6 +12,7 @@ import com.example.attendancetime.CommonValue
 import com.example.attendancetime.R
 import com.example.attendancetime.databinding.FragmentDashboardBinding
 import com.example.attendancetime.datamodel.dataclasses.SubjectClass
+import com.example.attendancetime.datamodel.firestoreDB.FireStoreDatabase
 import com.google.firebase.auth.FirebaseAuth
 /*
 This is the Dashboard fragment contain the Subject classes
@@ -33,6 +37,18 @@ class DashboardFragment : Fragment(), DashboardRecyclerAdapter.OnClassItemClickL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
+        FireStoreDatabase().fetchClasses()
+
+        CommonValue.classListFetched.observe(viewLifecycleOwner) {
+            if (it == true) {
+                setVisibleWithCrossfade(
+                    contentView = binding.viewGroupMain,
+                    loadingView = binding.viewGroupLoading,
+                    duration = 500L
+                )
+            }
+        }
+
         classList = CommonValue.classList.value!!
 
         val adapter =  DashboardRecyclerAdapter(classList, this)
@@ -85,5 +101,32 @@ class DashboardFragment : Fragment(), DashboardRecyclerAdapter.OnClassItemClickL
         CommonValue.classPosition.value = position
         val action = DashboardFragmentDirections.actionDashboardFragmentToSubjectFragment()
         findNavController().navigate(action)
+    }
+
+    private fun setVisibleWithCrossfade(contentView: View, loadingView: View, duration: Long) {
+        contentView.apply {
+            // Set the content view to 0% opacity but visible, so that it is visible
+            // (but fully transparent) during the animation.
+            alpha = 0f
+            visibility = View.VISIBLE
+
+            // Animate the content view to 100% opacity, and clear any animation
+            // listener set on the view.
+            animate()
+                .alpha(1f)
+                .setDuration(duration)
+                .setListener(null)
+        }
+        // Animate the loading view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        loadingView.animate()
+            .alpha(0f)
+            .setDuration(duration)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    loadingView.visibility = View.GONE
+                }
+            })
     }
 }

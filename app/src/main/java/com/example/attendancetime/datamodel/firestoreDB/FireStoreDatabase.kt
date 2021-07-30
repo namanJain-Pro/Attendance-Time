@@ -7,6 +7,7 @@ import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import java.util.*
 
 class FireStoreDatabase {
 
@@ -15,10 +16,10 @@ class FireStoreDatabase {
     }
 
     private val db = FirebaseFirestore.getInstance()
-    private val DBName: String = FirebaseAuth.getInstance().currentUser?.displayName.plus("Record")
+    private val dbName: String = getDbName(FirebaseAuth.getInstance().currentUser?.displayName ?: "")
 
     fun addNewClass (subjectClass: SubjectClass) {
-        db.collection(DBName)
+        db.collection(dbName)
             .document(subjectClass.subjectName.plus(subjectClass.section))
             .set(subjectClass)
             .addOnSuccessListener { Log.d(TAG, "addNewClass: Success in uploading the class") }
@@ -26,7 +27,7 @@ class FireStoreDatabase {
     }
 
     fun addNewAttendance(subjectClass: SubjectClass, attendance: Attendance) {
-        db.collection(DBName)
+        db.collection(dbName)
             .document(subjectClass.subjectName.plus(subjectClass.section))
             .collection(subjectClass.subjectName.plus("Attendance"))
             .document("".plus(attendance.day).plus(attendance.month).plus(attendance.year))
@@ -36,13 +37,43 @@ class FireStoreDatabase {
     }
 
     fun fetchClasses() {
-        db.collection(DBName)
+        db.collection(dbName)
             .get()
             .addOnSuccessListener { documents ->
+                val updatedClassList = CommonValue.classList.value ?: arrayListOf()
+                var duplicateCheck = true
+
                 for (document in documents) {
                     val subjectClassObject = document.toObject<SubjectClass>()
+                    if (!updatedClassList.contains(subjectClassObject)) {
+                        duplicateCheck = false
+                        updatedClassList.add(subjectClassObject)
+                    }
+                    Log.d(TAG, "fetchClasses: Data added to classList, state: $updatedClassList")
+                }
+
+                if (!duplicateCheck) {
+                    // Now set LiveData object
+                    CommonValue.classList.postValue(updatedClassList)
+                    // Set class list state to fetched
+                    CommonValue.classListFetched.postValue(true)
                 }
             }
             .addOnFailureListener { Log.e(TAG, "getClasses: Error in getting data, " + it.message) }
+    }
+
+    private fun getDbName(userName: String): String {
+        if(userName.isNotEmpty()) {
+            var str = ""
+            val arr = userName.lowercase().split(" ")
+            for (i in arr) {
+                str += i
+                str += "_"
+            }
+            str += "record"
+            return str
+        }
+
+        return "un-named".plus("_".plus(Random().nextInt() * Random().nextInt())).plus("_record")
     }
 }
