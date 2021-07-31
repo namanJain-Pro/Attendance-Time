@@ -3,6 +3,7 @@ package com.example.attendancetime.screen.dashboard
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.attendancetime.R
@@ -25,6 +26,7 @@ class DashboardRecyclerAdapter(
         val subjectName: TextView = view.findViewById(R.id.subject_name)
         val section: TextView = view.findViewById(R.id.section)
         val classStrength: TextView = view.findViewById(R.id.class_strength)
+        val backgroundImage: ImageView = view.findViewById(R.id.class_background_imageview)
 
         init {
             view.setOnClickListener(this)
@@ -49,6 +51,7 @@ class DashboardRecyclerAdapter(
                 holder.subjectName.text = it[position].subjectName
                 holder.section.text = it[position].section
                 holder.classStrength.text = "".plus(it[position].students.size)
+                holder.backgroundImage.setImageResource(it[position].imageId)
             }
         }
     }

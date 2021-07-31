@@ -19,5 +19,20 @@
         android:id="@+id/subjectProfilesFragment"
         android:name="com.example.attendancetime.screen.classes.SubjectProfilesFragment"
         android:label="fragment_subject_profiles"
-        tools:layout="@layout/fragment_subject_profiles" />
+        tools:layout="@layout/fragment_subject_profiles" >
+        <action
+            android:id="@+id/action_subjectProfilesFragment_to_addStudentFragment"
+            app:destination="@id/addStudentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStudentFragment"
+        android:name="com.example.attendancetime.screen.classes.AddStudentFragment"
+        android:label="fragment_add_student"
+        tools:layout="@layout/fragment_add_student" >
+        <action
+            android:id="@+id/action_addStudentFragment_to_subjectProfilesFragment"
+            app:destination="@id/subjectProfilesFragment"
+            app:popUpTo="@id/addStudentFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

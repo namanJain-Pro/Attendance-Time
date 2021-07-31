@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.attendancetime.CommonValue
 import com.example.attendancetime.R
 import com.example.attendancetime.databinding.FragmentSubjectBinding
+import com.example.attendancetime.datamodel.firestoreDB.FireStoreDatabase
 
 class SubjectFragment : Fragment() {
 
@@ -29,6 +31,9 @@ class SubjectFragment : Fragment() {
         val navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
+        CommonValue.newStudentList.value = arrayListOf()
+        FireStoreDatabase().fetchStudent(CommonValue.classPosition.value!!)
+        FireStoreDatabase().fetchAttendance()
     }
 
 

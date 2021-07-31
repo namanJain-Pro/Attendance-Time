@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.attendancetime.R
 import com.example.attendancetime.databinding.FragmentSubjectClassesBinding
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
@@ -16,7 +17,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 class SubjectClassesFragment : Fragment() {
 
     private lateinit var binding: FragmentSubjectClassesBinding
-    private val yData = arrayListOf<Float>(50f, 10f)
+    private val yData = arrayListOf(50f, 10f)
     private val xData = arrayListOf("Present", "Absent")
 
     override fun onCreateView(
@@ -64,7 +65,7 @@ class SubjectClassesFragment : Fragment() {
         pieDataSet.sliceSpace = 2f
         pieDataSet.valueTextSize = 12f
 
-        val colors = arrayListOf<Int>(Color.BLUE, Color.RED)
+        val colors = arrayListOf(Color.LTGRAY, Color.RED)
         pieDataSet.colors = colors
 
         val pieData = PieData(pieDataSet)

@@ -3,7 +3,6 @@ package com.example.attendancetime.screen.dashboard
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -37,14 +36,14 @@ class DashboardFragment : Fragment(), DashboardRecyclerAdapter.OnClassItemClickL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
-        FireStoreDatabase().fetchClasses()
+        fetchData()
 
         CommonValue.classListFetched.observe(viewLifecycleOwner) {
             if (it == true) {
                 setVisibleWithCrossfade(
                     contentView = binding.viewGroupMain,
                     loadingView = binding.viewGroupLoading,
-                    duration = 500L
+                    duration = 300L
                 )
             }
         }
@@ -128,5 +127,10 @@ class DashboardFragment : Fragment(), DashboardRecyclerAdapter.OnClassItemClickL
                     loadingView.visibility = View.GONE
                 }
             })
+    }
+
+    private fun fetchData() {
+        CommonValue.classList.value = arrayListOf()
+        FireStoreDatabase().fetchClasses()
     }
 }

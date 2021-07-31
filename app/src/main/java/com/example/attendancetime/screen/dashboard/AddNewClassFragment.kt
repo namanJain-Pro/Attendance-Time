@@ -16,6 +16,7 @@ import com.example.attendancetime.databinding.FragmentAddNewClassBinding
 import com.example.attendancetime.datamodel.dataclasses.Student
 import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 import com.example.attendancetime.datamodel.firestoreDB.FireStoreDatabase
+import kotlin.random.Random
 
 /*
 Here teacher can add new class
@@ -84,11 +85,16 @@ class AddNewClassFragment : Fragment() {
                     // If any field is left empty than we will show the message for filling them
                     // Else we will create the new class if all parameter are filled
                     if (notEmptyFieldsCheck()) {
-                        val subjectClass = SubjectClass(binding.editTextSubjectName.editText?.text.toString(),
-                            binding.editTextSection.editText?.text.toString(), studentList)
+                        val subjectClass = SubjectClass(
+                            getBackground(),
+                            binding.editTextSubjectName.editText?.text.toString(),
+                            binding.editTextSection.editText?.text.toString(),
+                            studentList)
                         classList.add(subjectClass)
+
                         CommonValue.classList.postValue(classList)
                         FireStoreDatabase().addNewClass(subjectClass)
+
                         btObject.unRegisterReceiver()
                         val action = AddNewClassFragmentDirections.actionAddNewClassFragmentToDashboardFragment()
                         findNavController().navigate(action)
@@ -107,7 +113,6 @@ class AddNewClassFragment : Fragment() {
     }
 
     // Helper Functions
-
     private fun notEmptyFieldsCheck() : Boolean {
         return binding.editTextSubjectName.editText?.text.toString().trim().isNotEmpty()
                 && binding.editTextSection.editText?.text.toString().trim().isNotEmpty()
@@ -121,6 +126,22 @@ class AddNewClassFragment : Fragment() {
         } else {
             binding.studentRecyclerView.visibility = View.GONE
             binding.emptyRecyclerview.visibility = View.VISIBLE
+        }
+    }
+
+    private fun getBackground(): Int {
+        return when(Random.nextInt(1, 10)) {
+            1 -> R.drawable.classbackground1
+            2 -> R.drawable.classbackground2
+            3 -> R.drawable.classbackground3
+            4 -> R.drawable.classbackground4
+            5 -> R.drawable.classbackground5
+            6 -> R.drawable.classbackground6
+            7 -> R.drawable.classbackground7
+            8 -> R.drawable.classbackground8
+            9 -> R.drawable.classbackground9
+
+            else -> R.drawable.classbackground1
         }
     }
 }

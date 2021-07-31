@@ -3,11 +3,13 @@ package com.example.attendancetime.datamodel.firestoreDB
 import android.util.Log
 import com.example.attendancetime.CommonValue
 import com.example.attendancetime.datamodel.dataclasses.Attendance
+import com.example.attendancetime.datamodel.dataclasses.Student
 import com.example.attendancetime.datamodel.dataclasses.SubjectClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FireStoreDatabase {
 
@@ -34,6 +36,28 @@ class FireStoreDatabase {
             .set(attendance)
             .addOnSuccessListener { Log.d(TAG, "addNewAttendance: Success in uploading the attendance") }
             .addOnFailureListener { Log.e(TAG, "addNewAttendance: Error writing attendance document, " + it.message) }
+    }
+
+    fun addNewStudent(studentList: ArrayList<Student>, subjectClass: SubjectClass) {
+        if (!studentList.isNullOrEmpty()) {
+            db.collection(dbName)
+                .document(subjectClass.subjectName.plus(subjectClass.section))
+                .update("students", studentList)
+                .addOnSuccessListener { Log.d(TAG, "addNewStudent: New Student Added") }
+                .addOnFailureListener { Log.d(TAG, "addNewStudent: Error in updating student list") }
+        } else {
+            Log.e(TAG, "addNewStudent: Error student list was empty or null")
+        }
+    }
+
+    fun fetchAttendance() {
+
+    }
+
+    fun fetchStudent(classPosition: Int) {
+        if (classPosition != -1 && classPosition < CommonValue.classList.value?.size!!) {
+            CommonValue.studentList.postValue(CommonValue.classList.value?.get(classPosition)?.students)
+        }
     }
 
     fun fetchClasses() {
