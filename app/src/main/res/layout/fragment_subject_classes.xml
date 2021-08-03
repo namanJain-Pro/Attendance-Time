@@ -25,10 +25,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:elevation="10dp"
             app:cardCornerRadius="10dp"
@@ -36,15 +37,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/empty_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_data_to_display"
+                android:textSize="16sp"
+                android:textColor="#111111"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -32,25 +32,48 @@ class FireStoreDatabase {
         db.collection(dbName)
             .document(subjectClass.subjectName.plus(subjectClass.section))
             .collection(subjectClass.subjectName.plus("Attendance"))
-            .document("".plus(attendance.day).plus(attendance.month).plus(attendance.year))
+            .document("${attendance.day}_${attendance.month}_${attendance.year}")
             .set(attendance)
             .addOnSuccessListener { Log.d(TAG, "addNewAttendance: Success in uploading the attendance") }
             .addOnFailureListener { Log.e(TAG, "addNewAttendance: Error writing attendance document, " + it.message) }
     }
 
-    fun addNewStudent(studentList: ArrayList<Student>, subjectClass: SubjectClass) {
+    fun addNewStudent(subjectClass: SubjectClass, studentList: ArrayList<Student>) {
+        Log.d(TAG, "addNewStudent: $studentList")
         if (!studentList.isNullOrEmpty()) {
             db.collection(dbName)
                 .document(subjectClass.subjectName.plus(subjectClass.section))
                 .update("students", studentList)
-                .addOnSuccessListener { Log.d(TAG, "addNewStudent: New Student Added") }
+                .addOnSuccessListener {
+                    Log.d(TAG, "addNewStudent: New Student Added")
+                    updateAttendanceForNewStudent(subjectClass, studentList)
+                }
                 .addOnFailureListener { Log.d(TAG, "addNewStudent: Error in updating student list") }
         } else {
             Log.e(TAG, "addNewStudent: Error student list was empty or null")
         }
     }
 
-    fun fetchAttendance() {
+    fun fetchAttendance(subjectClass: SubjectClass) {
+        db.collection(dbName)
+            .document(subjectClass.subjectName.plus(subjectClass.section))
+            .collection(subjectClass.subjectName.plus("Attendance"))
+            .get()
+            .addOnSuccessListener { documents ->
+                val attendanceList = CommonValue.attendanceList.value!!
+
+                for (document in documents) {
+                    val attendanceClassObject = document.toObject<Attendance>()
+                    if (!attendanceList.contains(attendanceClassObject)) {
+                        attendanceList.add(attendanceClassObject)
+                    }
+                }
+
+                CommonValue.attendanceList.postValue(attendanceList)
+            }
+            .addOnFailureListener {
+                Log.e(TAG, "fetchAttendance: Error in fetching attendance, " + it.message)
+            }
 
     }
 
@@ -65,25 +88,38 @@ class FireStoreDatabase {
             .get()
             .addOnSuccessListener { documents ->
                 val updatedClassList = CommonValue.classList.value ?: arrayListOf()
-                var duplicateCheck = true
 
                 for (document in documents) {
                     val subjectClassObject = document.toObject<SubjectClass>()
                     if (!updatedClassList.contains(subjectClassObject)) {
-                        duplicateCheck = false
                         updatedClassList.add(subjectClassObject)
                     }
                     Log.d(TAG, "fetchClasses: Data added to classList, state: $updatedClassList")
                 }
 
-                if (!duplicateCheck) {
-                    // Now set LiveData object
-                    CommonValue.classList.postValue(updatedClassList)
-                    // Set class list state to fetched
-                    CommonValue.classListFetched.postValue(true)
-                }
+                // Now set LiveData object
+                CommonValue.classList.postValue(updatedClassList)
+                // Set class list state to fetched
+                CommonValue.classListFetched.postValue(true)
             }
             .addOnFailureListener { Log.e(TAG, "getClasses: Error in getting data, " + it.message) }
+    }
+
+    private fun updateAttendanceForNewStudent(subjectClass: SubjectClass, studentList: ArrayList<Student>) {
+        val attendanceList = CommonValue.attendanceList.value!!
+
+        for (attendance in attendanceList) {
+            var isChange = false
+            for (student in studentList) {
+                if (!attendance.attendance.containsKey(student.name)) {
+                    isChange = true
+                    attendance.attendance[student.name] = false
+                }
+            }
+            if (isChange) {
+                addNewAttendance(subjectClass, attendance)
+            }
+        }
     }
 
     private fun getDbName(userName: String): String {

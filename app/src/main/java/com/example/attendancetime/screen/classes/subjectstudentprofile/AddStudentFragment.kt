@@ -1,4 +1,4 @@
-package com.example.attendancetime.screen.classes
+package com.example.attendancetime.screen.classes.subjectstudentprofile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,9 +15,11 @@ import com.example.attendancetime.databinding.FragmentAddStudentBinding
 import com.example.attendancetime.datamodel.dataclasses.Student
 import com.example.attendancetime.datamodel.firestoreDB.FireStoreDatabase
 import com.example.attendancetime.screen.dashboard.StudentRecyclerAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AddStudentFragment : Fragment() {
     private lateinit var binding: FragmentAddStudentBinding
+    private lateinit var bottomNav: BottomNavigationView
     private lateinit var btObject: DiscoverDevices
     private lateinit var identifyDevices: IdentifyDevices
     private lateinit var newStudentList: ArrayList<Student>
@@ -35,6 +37,9 @@ class AddStudentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
 
+        bottomNav = activity?.findViewById(R.id.bottomNavigationView)!!
+        bottomNav.visibility = View.GONE
+
         newStudentList = CommonValue.newStudentList.value!!
         btObject = DiscoverDevices(binding.root.context)
         identifyDevices = IdentifyDevices()
@@ -50,12 +55,18 @@ class AddStudentFragment : Fragment() {
 
         val adapter = StudentRecyclerAdapter(newStudentList)
         CommonValue.newStudentList.observe(viewLifecycleOwner, {
+            updateStudentList(CommonValue.newStudentList.value!!)
             adapter.notifyDataSetChanged()
             binding.progressBar.visibility = View.GONE
             visibilityStatus(!newStudentList.isNullOrEmpty())
         })
         binding.studentRecyclerview.adapter = adapter
         binding.studentRecyclerview.layoutManager = LinearLayoutManager(binding.root.context)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        bottomNav.visibility = View.VISIBLE
     }
 
     private fun setUpToolbar() {
@@ -88,11 +99,22 @@ class AddStudentFragment : Fragment() {
     }
 
     private fun addNewStudentInDb() {
-        FireStoreDatabase().addNewStudent(CommonValue.studentList.value!!,
-            CommonValue.classList.value!![CommonValue.classPosition.value!!]
+        FireStoreDatabase().addNewStudent(
+            CommonValue.classList.value!![CommonValue.classPosition.value!!],
+            CommonValue.studentList.value!!
         )
     }
 
+    private fun updateStudentList(newStudentList: ArrayList<Student>) {
+        val studentList = CommonValue.studentList.value!!
+        for (student in newStudentList) {
+            if (!studentList.contains(student)) {
+                studentList.add(student)
+            }
+        }
+
+        CommonValue.studentList.postValue(studentList)
+    }
 
     private fun visibilityStatus(status:Boolean) {
         if (status) {

@@ -3,7 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.3411458333333333" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.3421875" />
+        <entry key="app/src/main/res/layout/fragment_add_student.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/fragment_attendance_item.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/fragment_subject.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/fragment_subject_attendance.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/fragment_subject_classes.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/fragment_subject_profiles.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/fragment_take_attendance.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/item_attendance.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/item_attendance_list_student.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/item_class.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/item_student.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/item_student_attendance.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/menu/attendance_fragment_menu.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/menu/student_profile_menu.xml" value="0.3260416666666667" />
       </map>
     </option>
   </component>

@@ -20,6 +20,7 @@ class DiscoverDevices(private val context: Context) {
 
     private var bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     private var deviceFound: ArrayList<BluetoothDevice> = arrayListOf()
+    private var receiverRegistered = false
 
     fun discoverDevices() {
 
@@ -39,6 +40,7 @@ class DiscoverDevices(private val context: Context) {
 
             bluetoothAdapter.startDiscovery()
             context.registerReceiver(receiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
+            receiverRegistered = true
         }
 
         // If not then this
@@ -46,6 +48,7 @@ class DiscoverDevices(private val context: Context) {
             Log.d(TAG, "discoverDevices: Starting discovering")
             bluetoothAdapter.startDiscovery()
             context.registerReceiver(receiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
+            receiverRegistered = true
         }
     }
 
@@ -69,6 +72,7 @@ class DiscoverDevices(private val context: Context) {
     // Name explain everything
     fun unRegisterReceiver() {
         Log.d(TAG, "unRegisterReceiver: unregistering the receiver")
-        context.unregisterReceiver(receiver)
+        if (receiverRegistered)
+           context.unregisterReceiver(receiver)
     }
 }

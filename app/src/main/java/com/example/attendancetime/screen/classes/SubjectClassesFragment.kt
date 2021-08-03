@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.attendancetime.R
+import com.example.attendancetime.CommonValue
 import com.example.attendancetime.databinding.FragmentSubjectClassesBinding
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
@@ -17,7 +17,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 class SubjectClassesFragment : Fragment() {
 
     private lateinit var binding: FragmentSubjectClassesBinding
-    private val yData = arrayListOf(50f, 10f)
+    private var yData = arrayListOf(50f, 50f)
     private val xData = arrayListOf("Present", "Absent")
 
     override fun onCreateView(
@@ -31,8 +31,20 @@ class SubjectClassesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpPieChart()
-        addDataSet()
+        if (CommonValue.attendanceList.value?.isEmpty() == true) {
+            binding.emptyWarning.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+        } else {
+            CommonValue.attendanceList.observe(viewLifecycleOwner, {
+                if(it.isNotEmpty()) {
+                    calculateAverageAttendance()
+                    setUpPieChart()
+                    addDataSet()
+                    binding.chart.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                }
+            })
+        }
     }
 
     private fun setUpPieChart() {
@@ -50,6 +62,26 @@ class SubjectClassesFragment : Fragment() {
         legend.orientation = Legend.LegendOrientation.VERTICAL
         legend.setDrawInside(false)
         legend.isEnabled = true
+    }
+
+    private fun calculateAverageAttendance() {
+        val attendanceList = CommonValue.attendanceList.value!!
+        val totalStudent: Float = CommonValue.studentList.value?.size?.times(attendanceList.size)?.toFloat() ?: 0f
+        var totalPresentStudent = 0f
+        var totalAbsentStudent = 0f
+
+        for (i in attendanceList) {
+            for (j in i.attendance.keys) {
+                if (i.attendance[j] == true) {
+                    totalPresentStudent++
+                }
+            }
+        }
+        totalAbsentStudent = totalStudent - totalPresentStudent
+
+        val avgPresent = (totalPresentStudent / totalStudent) * 100
+        val avgAbsent = (totalAbsentStudent / totalStudent) * 100
+        yData = arrayListOf(avgPresent, avgAbsent)
     }
 
     private fun addDataSet() {

@@ -108,6 +108,7 @@ class AddNewClassFragment : Fragment() {
         }
         // Here we are adding the back button
         binding.toolbar.setNavigationOnClickListener {
+            btObject.unRegisterReceiver()
             findNavController().navigate(R.id.action_addNewClassFragment_to_dashboardFragment)
         }
     }

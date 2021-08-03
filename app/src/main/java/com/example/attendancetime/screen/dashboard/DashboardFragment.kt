@@ -35,6 +35,7 @@ class DashboardFragment : Fragment(), DashboardRecyclerAdapter.OnClassItemClickL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        CommonValue.studentList.value = arrayListOf()
         setUpToolbar()
         fetchData()
 

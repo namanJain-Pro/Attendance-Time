@@ -1,4 +1,4 @@
-package com.example.attendancetime.screen.classes
+package com.example.attendancetime.screen.classes.subjectstudentprofile
 
 import android.view.LayoutInflater
 import android.view.View

@@ -20,6 +20,7 @@ class IdentifyDevices {
     private lateinit var btDevices: ArrayList<BluetoothDevice>
     private lateinit var studentList: ArrayList<Student>
     private lateinit var newStudentList: ArrayList<Student>
+    private lateinit var presentStudentList: ArrayList<Student>
 
     // Here we are separating device on the basis of name
     // and updating student list
@@ -50,13 +51,33 @@ class IdentifyDevices {
                 val student = Student(details[2], details[1], details[0].toLong(), device.address)
                 if (!StudentValidation().studentAlreadyExist(student)) {
                     Log.d(TAG, "validateDevices: Updated the student list")
-                    newStudentList.add(student)
+                    if (!newStudentList.contains(student)) {
+                        newStudentList.add(student)
+                    }
                 } else {
                     Log.d(TAG, "validateNewDevices: student already exists")
                 }
             }
         }
         CommonValue.newStudentList.postValue(newStudentList)
+    }
+
+    fun validatePresentStudent() {
+        btDevices = CommonValue.btDeviceList.value!!
+        presentStudentList = CommonValue.presentStudentList.value!!
+
+        for (device in btDevices) {
+            if (correctNameFormat(device.name ?: "")) {
+                val details = device.name.split("_")
+                val student = Student(details[2], details[1], details[0].toLong(), device.address)
+                if (StudentValidation().studentAttendanceValidation(student)) {
+                    presentStudentList.add(student)
+                } else {
+                    Log.d(TAG, "validateNewDevices: student not from this class")
+                }
+            }
+        }
+        CommonValue.presentStudentList.postValue(presentStudentList)
     }
 
     private fun correctNameFormat(name: String): Boolean {

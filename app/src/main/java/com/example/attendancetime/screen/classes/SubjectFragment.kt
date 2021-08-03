@@ -33,7 +33,7 @@ class SubjectFragment : Fragment() {
         binding.bottomNavigationView.setupWithNavController(navController)
         CommonValue.newStudentList.value = arrayListOf()
         FireStoreDatabase().fetchStudent(CommonValue.classPosition.value!!)
-        FireStoreDatabase().fetchAttendance()
+        FireStoreDatabase().fetchAttendance(CommonValue.classList.value!![CommonValue.classPosition.value!!])
     }
 
 

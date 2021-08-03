@@ -12,12 +12,19 @@
         tools:layout="@layout/fragment_subject_classes" />
     <fragment
         android:id="@+id/subjectAttendanceFragment"
-        android:name="com.example.attendancetime.screen.classes.SubjectAttendanceFragment"
+        android:name="com.example.attendancetime.screen.classes.subjectattendance.SubjectAttendanceFragment"
         android:label="fragment_subject_attendance"
-        tools:layout="@layout/fragment_subject_attendance" />
+        tools:layout="@layout/fragment_subject_attendance" >
+        <action
+            android:id="@+id/action_subjectAttendanceFragment_to_takeAttendanceFragment"
+            app:destination="@id/takeAttendanceFragment" />
+        <action
+            android:id="@+id/action_subjectAttendanceFragment_to_attendanceItemFragment"
+            app:destination="@id/attendanceItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/subjectProfilesFragment"
-        android:name="com.example.attendancetime.screen.classes.SubjectProfilesFragment"
+        android:name="com.example.attendancetime.screen.classes.subjectstudentprofile.SubjectProfilesFragment"
         android:label="fragment_subject_profiles"
         tools:layout="@layout/fragment_subject_profiles" >
         <action
@@ -26,13 +33,35 @@
     </fragment>
     <fragment
         android:id="@+id/addStudentFragment"
-        android:name="com.example.attendancetime.screen.classes.AddStudentFragment"
+        android:name="com.example.attendancetime.screen.classes.subjectstudentprofile.AddStudentFragment"
         android:label="fragment_add_student"
         tools:layout="@layout/fragment_add_student" >
         <action
             android:id="@+id/action_addStudentFragment_to_subjectProfilesFragment"
             app:destination="@id/subjectProfilesFragment"
             app:popUpTo="@id/addStudentFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/takeAttendanceFragment"
+        android:name="com.example.attendancetime.screen.classes.subjectattendance.TakeAttendanceFragment"
+        android:label="fragment_take_attendance"
+        tools:layout="@layout/fragment_take_attendance" >
+        <action
+            android:id="@+id/action_takeAttendanceFragment_to_subjectAttendanceFragment"
+            app:destination="@id/subjectAttendanceFragment"
+            app:popUpTo="@id/takeAttendanceFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/attendanceItemFragment"
+        android:name="com.example.attendancetime.screen.classes.subjectattendance.AttendanceItemFragment"
+        android:label="fragment_attendance_item"
+        tools:layout="@layout/fragment_attendance_item" >
+        <action
+            android:id="@+id/action_attendanceItemFragment_to_subjectAttendanceFragment"
+            app:destination="@id/subjectAttendanceFragment"
+            app:popUpTo="@id/attendanceItemFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

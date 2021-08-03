@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.classes.subjectstudentprofile.AddStudentFragment">
+    tools:context=".screen.classes.subjectattendance.TakeAttendanceFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,10 +14,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Add Student"
+            app:title="New Attendance"
             app:menu="@menu/new_class_menu"
             app:navigationIcon="@drawable/ic_back"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,25 +27,51 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <Button
-            android:id="@+id/add_student"
+            android:id="@+id/take_attendance_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_students"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/take_attendance"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
             android:textSize="16sp"
             app:icon="@drawable/ic_baseline_add"
             app:iconGravity="textStart"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:iconTint="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
+
+        <TextView
+            android:id="@+id/date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/studentCount_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_textview" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            android:layout_marginTop="4dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/add_student"
+            app:layout_constraintTop_toBottomOf="@id/take_attendance_btn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
@@ -61,15 +87,13 @@
             app:layout_constraintTop_toBottomOf="@+id/progress_bar"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/student_recyclerview"
+            android:id="@+id/attendance_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_student" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/take_attendance_btn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

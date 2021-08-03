@@ -7,4 +7,8 @@ data class Attendance(
     val attendance: HashMap<String, Boolean>) {
 
     constructor() : this(0, "", 0, hashMapOf<String, Boolean>())
+
+    fun getDate() : String {
+        return "$day $month $year"
+    }
 }

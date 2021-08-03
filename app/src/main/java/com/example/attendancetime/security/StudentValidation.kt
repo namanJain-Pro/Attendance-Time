@@ -14,11 +14,15 @@ class StudentValidation {
     }
 
     private var studentList: ArrayList<Student> = CommonValue.studentList.value!!
+    private var presentStudentList: ArrayList<Student> = CommonValue.presentStudentList.value!!
 
     // This method will check if student already exist in list or not
     // And also if someone has changed there name
     fun studentAlreadyExist(student: Student): Boolean {
-        Log.d(TAG, "studentAlreadyExist: Validating if student " + student.name + "already exist or not")
+        Log.d(
+            TAG,
+            "studentAlreadyExist: Validating if student " + student.name + "already exist or not"
+        )
         if (!studentList.isNullOrEmpty()) {
             for (obj in studentList) {
                 if (obj.toEqual(student) == 1) {
@@ -29,6 +33,17 @@ class StudentValidation {
             }
         }
         Log.d(TAG, "studentAlreadyExist: Student doesn't exist in list")
+        return false
+    }
+
+    fun studentAttendanceValidation(student: Student): Boolean {
+        if (!studentList.isNullOrEmpty()) {
+            for (obj in studentList) {
+                if (obj.toEqual(student) == 1) {
+                    return !presentStudentList.contains(obj)
+                }
+            }
+        }
         return false
     }
 }
