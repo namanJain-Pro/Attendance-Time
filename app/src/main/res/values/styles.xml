@@ -2,13 +2,13 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
 
-        <item name="colorPrimary">#cfd8dc</item>
-        <item name="colorPrimaryDark">#9ea7aa</item>
+        <item name="colorPrimary">#0288d1</item>
+        <item name="colorPrimaryDark">#005b9f</item>
         <item name="colorOnPrimary">#000000</item>
-        <item name="colorSecondary">#424242</item>
+        <item name="colorSecondary">#01579b</item>
         <item name="colorOnSecondary">#ffffff</item>
         <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#1b1b1b</item>
+        <item name="colorOnSurface">#002f6c</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

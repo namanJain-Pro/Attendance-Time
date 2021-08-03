@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cfd8dc"
+    android:background="#262626"
     tools:context=".screen.authentication.SignInFragment">
 
     <Button
@@ -42,14 +42,14 @@
         app:layout_constraintVertical_bias="0.07999998"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_url="https://assets10.lottiefiles.com/packages/lf20_q5pk6p1k.json" />
+        app:lottie_rawRes="@raw/user_profile"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
